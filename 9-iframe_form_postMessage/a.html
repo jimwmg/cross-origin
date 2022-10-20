@@ -16,26 +16,15 @@
             headers = headers || {
                 'Content-Type': 'application/x-www-form-urlencoded',
             };
-            window.onmessage = null; // 初始化，移除之前绑定的事件
-            window.onmessage = ({ data }) => {
-                success && success(data);
-            };
-
-            let ifr = document.createElement("iframe");
-            ifr.style.display = "none";
-            ifr.name = "proxy" + Date.now();
-            document.body.appendChild(ifr);
-            // 加载完移除iframe，防止创建多个iframe
-            ifr.addEventListener("load", () => {
-                // ifr.remove();
-            });
+            
             let form = document.createElement("form");
             let input = document.createElement("input");
 
             form.style.display = "none";
             form.action = url;
             form.method = method.toUpperCase();
-            form.target = ifr.name; // 将form的打开目标移至iframe
+            // form.target = ifr.name; // 将form的打开目标移至iframe
+            form.target = '_blank'; // 将form的打开目标移至iframe
             form.enctype = headers['Content-Type'];
 
             for (let key in data) {
@@ -51,7 +40,7 @@
         }
 
         request({
-            url: "http://localhost:3002/user/",
+            url: "http://localhost:3002/cors/",
             method: "POST",
             data: {
                 name: "Yangfan",
@@ -62,21 +51,21 @@
             }
         });
 
-        request({
-            url: "http://localhost:3002/user/",
-            method: "GET",
-            data: {
-                name: "Yangfan",
-                age: 23,
-            },
-            success(data) {
-                console.log(data);
-            }
-        });
+       
     </script>
     <!-- https://www.w3schools.com/tags/att_form_target.asp
     
-    
+    因为原页面用 form 提交到另一个域名之后，原页面的脚本无法获取新页面中的内容。所以浏览器认为这是安全的。
+    而 AJAX 是可以读取响应内容的，因此浏览器不能允许你这样做。如果你细心的话你会发现，其实请求已经发送出去了，你只是拿不到响应而已。所以浏览器这个策略的本质是，一个域名的 JS ，在未经允许的情况下，不得读取另一个域名的内容。但浏览器并不阻止你向另一个域名发送请求。
+
+    _self	Opens the form response in the current browser context. (This is the default behavior.)
+    _blank	Opens the form response in a new browser tab or window.
+    Value	Description
+    _blank	The response is displayed in a new window or tab
+    _self	The response is displayed in the same frame (this is default)
+    _parent	The response is displayed in the parent frame
+    _top	The response is displayed in the full body of the window
+    framename	The response is displayed in a named iframe 
     -->
 </body>
 

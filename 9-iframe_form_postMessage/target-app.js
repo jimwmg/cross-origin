@@ -32,6 +32,10 @@ app.post("/user", function (req, res) {
         </script>
     `);
 });
+app.post("/cors", function (req, res) {
+    // 返回值需要处理成postmessge的格式
+    res.send(`cors-data`);
+});
 
 app.listen(PORT, function () {
     console.log(`The server is running in http://localhost:${PORT}`);
