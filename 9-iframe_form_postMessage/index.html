@@ -36,6 +36,12 @@
             form.action = url;
             form.method = method.toUpperCase();
             form.target = ifr.name; // 将form的打开目标移至iframe
+            /*
+            form 表单提交数据 不跳转解决办法:
+            利用隐藏的 iframe —— 只需form的 target 指向iframe的name；可不用form 的action默认提交，自己写ajax 提交数据。
+
+
+            */
             form.enctype = headers['Content-Type'];
 
             for (let key in data) {

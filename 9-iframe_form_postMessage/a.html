@@ -35,7 +35,11 @@
 
             document.body.appendChild(form);
 
-            form.submit();
+            // form.submit();
+
+            form.addEventListener('submit', function(){
+                e.preventDefault()
+            });
             form.remove(); // 表单提交之后移除form，防止创建多个form
         }
 
@@ -56,7 +60,9 @@
     <!-- https://www.w3schools.com/tags/att_form_target.asp
     
     因为原页面用 form 提交到另一个域名之后，原页面的脚本无法获取新页面中的内容。所以浏览器认为这是安全的。
-    而 AJAX 是可以读取响应内容的，因此浏览器不能允许你这样做。如果你细心的话你会发现，其实请求已经发送出去了，你只是拿不到响应而已。所以浏览器这个策略的本质是，一个域名的 JS ，在未经允许的情况下，不得读取另一个域名的内容。但浏览器并不阻止你向另一个域名发送请求。
+    而 AJAX 是可以读取响应内容的，因此浏览器不能允许你这样做。如果你细心的话你会发现，其实请求已经发送出去了，
+    你只是拿不到响应而已。所以浏览器这个策略的本质是，一个域名的 JS ，在未经允许的情况下，不得读取另一个域名的内容。
+    但浏览器并不阻止你向另一个域名发送请求。
 
     _self	Opens the form response in the current browser context. (This is the default behavior.)
     _blank	Opens the form response in a new browser tab or window.
