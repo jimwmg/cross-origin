@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSONP-demo</title>
+</head>
+<body>
+<p>hello world</p>
+<div id="btn">直接插入dom不执行</div>
+<div id="btn2">插入到script 标签内可以执行</div>
+<div id="root"></div>
+<script id="root-script"></script>
+<script>
+    const getLoad = (id,url) => {
+      const  container = document.getElementById(id);
+      var xhr = new XMLHttpRequest();
+        xhr.open('GET', url);                 // 与3001端口建立一个连接
+        xhr.send(null);                       // 发送给3001端口数据为空
+        xhr.onreadystatechange = () => {     // 请求状态改变后调用这个函数
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {  // 如果请求成功
+                container.innerHTML = xhr.response;
+            }
+        }
+    }
+    document.getElementById('btn').addEventListener('click',() => getLoad('root','http://localhost:3001/text'),false)
+    document.getElementById('btn2').addEventListener('click',() => getLoad('root-script','http://localhost:3001/script'),false)
+</script>
+
+<script>
+    function myFunction (data) {
+        let p = document.getElementsByTagName('p')[0]
+        setTimeout(function () {
+            p.innerHTML = data.message
+        }, 2000)
+        // 2s后p标签内的内容将改变
+    }
+</script> 
+</body>
+</html>
