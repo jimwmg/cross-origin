@@ -6,7 +6,9 @@
 </head>
 <body>
 <p>hello world</p>
+
 <script>
+//不同源下的页面 即使通过  iframe 嵌入，也无法访问对应的 window 对象
 var p = document.getElementsByTagName('p')[0];
 var iframe = document.createElement('iframe');
 iframe.src = 'http://localhost:3001/c.html#getdata';   // location.hash为'#getdata'

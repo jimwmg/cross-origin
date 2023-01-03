@@ -10,6 +10,7 @@ var message = 'hello world from hash 😶'
 if (location.hash === '#getdata') {
     var ifrproxy = document.createElement('iframe');
     ifrproxy.style.display = 'none';
+    //不同源下的页面 即使通过  iframe 嵌入，也无法访问对应的 window 对象 所以这里通过一个中间态绕过
     ifrproxy.src = 'http://localhost:3000/b.html#' + message; // 注意该文件在3000端口下
     document.body.appendChild(ifrproxy);
 }

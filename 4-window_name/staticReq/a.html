@@ -14,13 +14,13 @@ var iframe = document.createElement('iframe');
 iframe.src = 'http://localhost:3001/c.html'; //第一次加载url
 iframe.style.display = 'none';
 document.body.appendChild(iframe);
-
+//不同源下的页面 即使通过  iframe 嵌入，也无法访问对应的 window 对象
 var loadFunc = function () {
     console.log('loadFunc-exec')
     if(isFirst){
         console.log('loadFunc-firt',isFirst)
         //加载完url后，修改src属性，使其与3000端口同源 会再次触发 iframe 的 onload  的事件，可以拿到对应的数据
-        //因为window.name属性在不同的页面（甚至不同域名）加载后依旧存在。
+        //因为window.name 属性在不同的页面（甚至不同域名）加载后依旧存在。
         iframe.src = 'http://localhost:3000/b.html';
         isFirst = false;
     }else {
